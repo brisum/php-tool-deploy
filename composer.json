@@ -1,0 +1,18 @@
+{
+    "name": "brisum/deploy",
+    "authors": [
+        {
+            "name": "Oleksandr Manchenko",
+            "email": "omanchenko@brisum.com"
+        }
+    ],
+    "require": {
+        "symfony/console": "^3.3",
+        "brisum/lib-object-manager": "^0.3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Brisum\\Deploy\\": [""]
+        }
+    }
+}

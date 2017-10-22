@@ -1,0 +1,33 @@
+{
+  "type": "ftp",
+  "host": "ftp.example.com",
+  "user": "user",
+  "password": "password",
+  "abs_path": "/var/www/",
+  "base_path": "/var/www/",
+  "public_path": "/var/www/web",
+
+  "site_url": "http://example.com",
+  "cms": "asgard|opencart|prestashop|symfony2|wordpress",
+
+  "ignore_files": [
+    ".ftpquota",
+
+    "dev",
+
+    // asgard
+    "storage",
+    ".env",
+
+    // prestashop
+    "cache",
+    "config",
+    "img/tmp",
+
+    // wordpress
+    "wp-content/cache",
+    "wp-content/uploads",
+    "wp-content/files_mf",
+    "wp-config-local.php"
+  ]
+}
