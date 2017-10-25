@@ -1,9 +1,16 @@
 {
-    "name": "brisum/deploy",
+    "name": "brisum/tool-deploy",
+    "description": "Simple deploy tool",
+    "keywords": [
+        "deploy"
+    ],
+    "homepage": "https://github.com/brisum/php-tool-deploy",
+    "license": "MIT",
     "authors": [
         {
             "name": "Oleksandr Manchenko",
-            "email": "omanchenko@brisum.com"
+            "email": "omanchenko@brisum.com",
+            "homepage": "http://brisum.com"
         }
     ],
     "require": {
