@@ -52,7 +52,9 @@ class TestCommand extends Command
         $config = json_decode(file_get_contents($configPath), true);
         $client = $this->clientFactory->create($config);
 
-        $client->connect();
+        if(!$client->connect()) {
+            throw new Exception('Can not connect to ' . $configuration);
+        }
         $client->test();
         $client->close();
     }

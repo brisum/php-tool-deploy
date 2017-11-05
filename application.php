@@ -7,6 +7,9 @@ define('DEPLOY_ROOT_DIR', dirname(__FILE__) . '/');
 define('DEPLOY_CONFIG_DIR', DEPLOY_ROOT_DIR . 'config/');
 define('DEPLOY_EXPLOIT_DIR', DEPLOY_ROOT_DIR . 'exploit/');
 define('DEPLOY_TMP_DIR', DEPLOY_ROOT_DIR . 'tmp/');
+define('DEPLOY_TMP_DIR_FILES', DEPLOY_TMP_DIR . 'files/');
+define('DEPLOY_TMP_DIR_DB', DEPLOY_TMP_DIR . 'db/');
+define('DEPLOY_TMP_DIR_DIFF', DEPLOY_TMP_DIR . 'diff/');
 
 $autoload = require(DEPLOY_ROOT_DIR . 'vendor/autoload.php');
 
@@ -38,6 +41,7 @@ $application = $objectManager->create('Symfony\Component\Console\Application');
 
 $application->add($objectManager->create('Brisum\Deploy\Console\TestCommand'));
 $application->add($objectManager->create('Brisum\Deploy\Console\FilesFetchCommand'));
+$application->add($objectManager->create('Brisum\Deploy\Console\FilesDiffCommand'));
 $application->add($objectManager->create('Brisum\Deploy\Console\DbExportCommand'));
 
 $application->run();

@@ -95,7 +95,18 @@ class FtpClient implements ClientInterface
     {
         $dirLog = dirname($log);
         $url = sprintf('%s/exploit/file-list.php?path=%s', $this->config['site_url'], $this->config['abs_path']);
-        $response = file_get_contents($url);
+        $curl = curl_init();
+
+        echo 'request ' . $url . "\n";
+        curl_setopt_array(
+            $curl,
+            [
+                CURLOPT_URL => $url,
+                CURLOPT_TIMEOUT => 600
+            ]
+        );
+        $response = curl_exec($curl);
+        curl_close($curl);
 
         if (!file_exists($dirLog) && !mkdir($dirLog, 0755, true)) {
             throw new Exception('Can not create directory' . $dirLog);

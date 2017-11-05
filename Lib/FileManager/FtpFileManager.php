@@ -56,6 +56,8 @@ class FtpFileManager implements FileManagerInterface
             return false;
         }
 
+        ftp_pasv($this->ftpConnection, true);
+
         return true;
     }
 
@@ -132,7 +134,7 @@ class FtpFileManager implements FileManagerInterface
                 /** @var SplFileInfo  $fileInfo */
                 $isUpload = $isUpload && $this->upload(
                         rtrim($remoteFile, '/') . '/' . $fileInfo->getFilename(),
-                        $localFile . DIRECTORY_SEPARATOR . $fileInfo->getFilename()
+                        rtrim($localFile, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $fileInfo->getFilename()
                     );
             }
             return $isUpload;
