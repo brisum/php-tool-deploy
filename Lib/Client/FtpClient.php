@@ -35,6 +35,22 @@ class FtpClient implements ClientInterface
     }
 
     /**
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @return FileManagerInterface
+     */
+    public function getFileManager()
+    {
+        return $this->fileManager;
+    }
+
+    /**
      * @return bool
      */
     public function connect()

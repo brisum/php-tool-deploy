@@ -42,6 +42,7 @@ $application = $objectManager->create('Symfony\Component\Console\Application');
 $application->add($objectManager->create('Brisum\Deploy\Console\TestCommand'));
 $application->add($objectManager->create('Brisum\Deploy\Console\FilesFetchCommand'));
 $application->add($objectManager->create('Brisum\Deploy\Console\FilesDiffCommand'));
+$application->add($objectManager->create('Brisum\Deploy\Console\FilesSyncCommand'));
 $application->add($objectManager->create('Brisum\Deploy\Console\DbExportCommand'));
 
 $application->run();

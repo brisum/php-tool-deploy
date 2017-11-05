@@ -28,6 +28,22 @@ class FsClient implements ClientInterface
     }
 
     /**
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @return FileManagerInterface
+     */
+    public function getFileManager()
+    {
+        return $this->fileManager;
+    }
+
+    /**
      * @return bool
      */
     public function connect()
@@ -119,13 +135,24 @@ class FsClient implements ClientInterface
     {
         $dirDump = dirname($path);
         $url = sprintf('%s/exploit/db/%s.php?action=export', $this->config['site_url'], $this->config['cms']);
-        $response = file_get_contents($url);
+        $curl = curl_init();
+
+        echo 'request ' . $url . "\n";
+        curl_setopt_array(
+            $curl,
+            [
+                CURLOPT_URL => $url,
+                CURLOPT_TIMEOUT => 600
+            ]
+        );
+        $response = curl_exec($curl);
+        curl_close($curl);;
 
         if (!file_exists($dirDump) && !mkdir($dirDump, 0755, true)) {
             throw new Exception('Can not create directory' . $dirDump);
         }
 
-        $this->fileManager->download($path, $this->config['base_path'] . '/exploit/src/export/dump.sql');
+        $this->fileManager->download($path, $this->config['base_path'] . 'exploit/src/export/dump.sql');
 
         return $response;
     }

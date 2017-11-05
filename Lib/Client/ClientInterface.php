@@ -2,8 +2,20 @@
 
 namespace Brisum\Deploy\Lib\Client;
 
+use Brisum\Deploy\Lib\FileManager\FileManagerInterface;
+
 interface ClientInterface
 {
+    /**
+     * @return array
+     */
+    public function getConfig();
+
+    /**
+     * @return FileManagerInterface
+     */
+    public function getFileManager();
+
     /**
      * @return bool
      */

@@ -41,7 +41,6 @@ class FilesFetchCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $configuration = $input->getArgument('configuration');
         $configPath = DEPLOY_CONFIG_DIR . $configuration . '.json';
 
