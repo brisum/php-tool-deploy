@@ -51,16 +51,15 @@ class DbExportCommand extends Command
 
         $config = json_decode(file_get_contents($configPath), true);
         $client = $this->clientFactory->create($config);
-        $destDir = DEPLOY_TMP_DIR . 'export/';
 
         $client->connect();
         $client->load();
 
-        if (!file_exists($destDir) && !mkdir($destDir, 0777, true)) {
-            throw new Exception('Can not create directory ' . $destDir);
+        if (!file_exists(DEPLOY_TMP_DIR_DB) && !mkdir(DEPLOY_TMP_DIR_DB, 0777, true)) {
+            throw new Exception('Can not create directory ' . DEPLOY_TMP_DIR_DB);
         }
 
-        echo $client->dbExport($destDir . 'dump.sql');
+        echo $client->dbExport(DEPLOY_TMP_DIR_DB . $configuration . '-dump.sql');
 
         $client->close();
     }
