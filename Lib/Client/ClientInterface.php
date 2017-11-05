@@ -56,5 +56,5 @@ interface ClientInterface
     /**
      * @return bool
      */
-    public function dbImport();
+    public function dbImport($path);
 }

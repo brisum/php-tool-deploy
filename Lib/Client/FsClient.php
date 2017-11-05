@@ -160,13 +160,23 @@ class FsClient implements ClientInterface
     /**
      * @return bool
      */
-    public function dbImport()
+    public function dbImport($path)
     {
-        /*
-        self.ftpClient.upload(path, '/exploit/src/import/dump.sql')
-        response = request.urlopen('%s/exploit/db/%s.php?action=import' % (self.config['site_url'], self.config['cms']))
-        print(response.read())
-        response.close()
-         */
+        $this->fileManager->upload($this->config['base_path'] . '/exploit/src/import/dump.sql', $path);
+        $url = sprintf('%s/exploit/db/%s.php?action=import', $this->config['site_url'], $this->config['cms']);
+        $curl = curl_init();
+
+        echo 'request ' . $url . "\n";
+        curl_setopt_array(
+            $curl,
+            [
+                CURLOPT_URL => $url,
+                CURLOPT_TIMEOUT => 600
+            ]
+        );
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        return $response;
     }
 }

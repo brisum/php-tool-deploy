@@ -44,5 +44,7 @@ $application->add($objectManager->create('Brisum\Deploy\Console\FilesFetchComman
 $application->add($objectManager->create('Brisum\Deploy\Console\FilesDiffCommand'));
 $application->add($objectManager->create('Brisum\Deploy\Console\FilesSyncCommand'));
 $application->add($objectManager->create('Brisum\Deploy\Console\DbExportCommand'));
+$application->add($objectManager->create('Brisum\Deploy\Console\DbImportCommand'));
+$application->add($objectManager->create('Brisum\Deploy\Console\DbSyncCommand'));
 
 $application->run();
