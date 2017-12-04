@@ -62,6 +62,7 @@ class FilesFetchCommand extends Command
 
         echo $client->getFilelist(DEPLOY_TMP_DIR_FILES . $configuration .'-files.txt');
 
+        $client->clear();
         $client->close();
     }
 }

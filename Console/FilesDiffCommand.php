@@ -109,6 +109,7 @@ class FilesDiffCommand extends Command
 
         echo $client->getFilelist(DEPLOY_TMP_DIR_FILES . $name .'-files.txt');
 
+        $client->clear();
         $client->close();
     }
 

@@ -61,6 +61,7 @@ class DbImportCommand extends Command
 
         echo $client->dbImport(DEPLOY_TMP_DIR_DB . $configuration . '-dump.sql');
 
+        $client->clear();
         $client->close();
     }
 }

@@ -91,7 +91,9 @@ class FilesSyncCommand extends Command
             throw new Exception('Not resolve sync ' . $sourceConfig['type'] . ' to ' . $destinationConfig['type']);
         }
 
+        $sourceClient->clear();
         $sourceClient->close();
+        $destinationClient->clear();
         $destinationClient->close();
     }
 
