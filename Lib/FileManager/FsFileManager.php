@@ -4,6 +4,8 @@ namespace Brisum\Deploy\Lib\FileManager;
 
 use Exception;
 use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use SplFileInfo;
 
 class FsFileManager implements FileManagerInterface
@@ -106,10 +108,20 @@ class FsFileManager implements FileManagerInterface
     {
         if ($this->isFile($path)) {
             return unlink($path);
-        } elseif ($this->isDir($path)) {
+        }
+        if ($this->isDir($path)) {
+            $list = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS),
+                RecursiveIteratorIterator::CHILD_FIRST
+            );
+            foreach($list as $item) {
+                /** @var SplFileInfo $item */
+                $this->rm($item->getRealPath());
+            }
+
             return rmdir($path);
         }
-        return true;
+        return false;
     }
 
     /**

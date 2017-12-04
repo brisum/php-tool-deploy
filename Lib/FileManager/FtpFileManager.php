@@ -166,10 +166,14 @@ class FtpFileManager implements FileManagerInterface
     {
         if ($this->isFile($path)) {
             return ftp_delete($this->ftpConnection, $path);
-        } elseif ($this->isDir($path)) {
+        }
+        if ($this->isDir($path)) {
+            foreach ($this->dirList($path) as $item) {
+                $this->rm("{$path}/$item");
+            }
             return ftp_rmdir($this->ftpConnection, $path);
         }
-        return true;
+        return false;
     }
 
     /**
