@@ -75,17 +75,17 @@ class FsClient implements ClientInterface
      */
     public function load()
     {
-        $this->fileManager->upload($this->config['base_path'] . 'exploit', DEPLOY_EXPLOIT_DIR);
+        $this->fileManager->upload($this->config['public_path'] . 'exploit', DEPLOY_EXPLOIT_DIR);
 
         if (!file_exists(DEPLOY_TMP_DIR) && !mkdir(DEPLOY_TMP_DIR, 0755, true)) {
             throw new Exception('Can not create directory' . DEPLOY_TMP_DIR);
         }
         $ignoreFilePath = DEPLOY_TMP_DIR . 'ignore-files-' . date('Ymd-His') . '-' . mt_rand() . '.txt';
         file_put_contents($ignoreFilePath, implode("\n", $this->config['ignore_files']));
-        $this->fileManager->upload($this->config['base_path'] . '/exploit/config/ignore_files', $ignoreFilePath);
+        $this->fileManager->upload($this->config['public_path'] . '/exploit/config/ignore_files', $ignoreFilePath);
         unlink($ignoreFilePath);
 
-        $this->fileManager->chmod($this->config['base_path'] . 'exploit', 0755);
+        $this->fileManager->chmod($this->config['public_path'] . 'exploit', 0755);
     }
 
     /**
@@ -121,7 +121,7 @@ class FsClient implements ClientInterface
             throw new Exception('Can not create directory' . $dirLog);
         }
 
-        $this->fileManager->download($log, $this->config['base_path'] . 'exploit/src/export/filelist');
+        $this->fileManager->download($log, $this->config['public_path'] . 'exploit/src/export/filelist');
 
         return $response;
     }
@@ -152,7 +152,7 @@ class FsClient implements ClientInterface
             throw new Exception('Can not create directory' . $dirDump);
         }
 
-        $this->fileManager->download($path, $this->config['base_path'] . 'exploit/src/export/dump.sql');
+        $this->fileManager->download($path, $this->config['public_path'] . 'exploit/src/export/dump.sql');
 
         return $response;
     }
@@ -162,7 +162,7 @@ class FsClient implements ClientInterface
      */
     public function dbImport($path)
     {
-        $this->fileManager->upload($this->config['base_path'] . '/exploit/src/import/dump.sql', $path);
+        $this->fileManager->upload($this->config['public_path'] . '/exploit/src/import/dump.sql', $path);
         $url = sprintf('%s/exploit/db/%s.php?action=import', $this->config['site_url'], $this->config['cms']);
         $curl = curl_init();
 

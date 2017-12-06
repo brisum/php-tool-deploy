@@ -56,7 +56,6 @@ class TestCommand extends Command
             throw new Exception('Can not connect to ' . $configuration);
         }
         $client->test();
-        $client->clear();
         $client->close();
     }
 }

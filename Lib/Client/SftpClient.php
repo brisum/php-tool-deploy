@@ -6,7 +6,7 @@ use Brisum\Deploy\Lib\FileManager\FileManagerInterface;
 use Brisum\Lib\ObjectManager;
 use Exception;
 
-class FtpClient implements ClientInterface
+class SftpClient implements ClientInterface
 {
     /** @var  array */
     protected $config;
@@ -25,7 +25,7 @@ class FtpClient implements ClientInterface
     {
         $this->config = $config;
         $this->fileManager = $objectManager->create(
-            'Brisum\Deploy\Lib\FileManager\FtpFileManager',
+            'Brisum\Deploy\Lib\FileManager\SftpFileManager',
             [
                 'host' => $this->config['host'],
                 'user' => $this->config['user'],
