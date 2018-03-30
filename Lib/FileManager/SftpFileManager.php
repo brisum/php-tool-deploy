@@ -12,6 +12,10 @@ class SftpFileManager implements FileManagerInterface
      * @var string
      */
     protected $host;
+    /**
+     * @var integer
+     */
+    protected $port;
 
     /**
      * @var string
@@ -35,12 +39,14 @@ class SftpFileManager implements FileManagerInterface
 
     /**
      * @param string $host
+     * @param integer $port
      * @param string $user
      * @param string $password
      */
-    public function __construct($host, $user, $password)
+    public function __construct($host, $port, $user, $password)
     {
         $this->host = $host;
+        $this->port = intval($port);
         $this->user = $user;
         $this->password = $password;
     }
@@ -50,7 +56,7 @@ class SftpFileManager implements FileManagerInterface
      */
     public function connect()
     {
-        $this->session = ssh2_connect($this->host);
+        $this->session = ssh2_connect($this->host, $this->port);
 
         if (!$this->session) {
             return false;
@@ -147,10 +153,11 @@ class SftpFileManager implements FileManagerInterface
             $fileIterator = new FilesystemIterator($localFile, FilesystemIterator::SKIP_DOTS);
             foreach ($fileIterator as $fileInfo) {
                 /** @var SplFileInfo  $fileInfo */
-                $isUpload = $isUpload && $this->upload(
+                $isFileUpload = $this->upload(
                         rtrim($remoteFile, '/') . '/' . $fileInfo->getFilename(),
                         rtrim($localFile, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $fileInfo->getFilename()
                     );
+                $isUpload = $isUpload && $isFileUpload;
             }
             return $isUpload;
         }
