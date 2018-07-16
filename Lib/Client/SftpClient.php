@@ -28,6 +28,7 @@ class SftpClient implements ClientInterface
             'Brisum\Deploy\Lib\FileManager\SftpFileManager',
             [
                 'host' => $this->config['host'],
+                'port' => $this->config['port'],
                 'user' => $this->config['user'],
                 'password' => $this->config['password']
             ]
@@ -100,7 +101,7 @@ class SftpClient implements ClientInterface
      */
     public function clear()
     {
-        return $this->fileManager->rm($this->config['base_path'] . 'exploit');
+        return 0; // $this->fileManager->rm($this->config['base_path'] . 'exploit');
     }
 
     /**
