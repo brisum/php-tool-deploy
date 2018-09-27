@@ -182,7 +182,8 @@ class FtpFileManager implements FileManagerInterface
      */
     public function isExists($path)
     {
-        return false !== ftp_nlist($this->ftpConnection, $path);
+        $list = ftp_nlist($this->ftpConnection, $path);
+        return false !== $list && !empty($list);
     }
 
     /**
